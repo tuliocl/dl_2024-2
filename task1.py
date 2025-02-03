@@ -40,12 +40,11 @@ def generate_data(seed, samples, noise):
     return X, y
 
 def main():
-    #19212579
     parser = argparse.ArgumentParser(description="Train a single-layer perceptron using NumPy.")
     parser.add_argument('--registration_number', type=int, required=True, help="Student's registration number (used as seed)")
     parser.add_argument('--samples', type=int, default=200, help="Number of data samples")
     parser.add_argument('--noise', type=float, default=1.5, help="Standard deviation of clusters")
-    parser.add_argument('--learning_rate', type=float, default=0.1, help="Perceptron learning rate")
+    parser.add_argument('--learning_rate', type=float, default=0.01, help="Perceptron learning rate")
     parser.add_argument('--epochs', type=int, default=1000, help="Number of training epochs")
     
     args = parser.parse_args()
@@ -61,6 +60,7 @@ def main():
     # Evaluate the perceptron
     y_pred = perceptron.predict(X_test)
     accuracy = np.mean(y_pred == y_test)
+
     print(f"Perceptron Training Completed.")
     print(f"Test Accuracy: {accuracy:.4f}")
 
@@ -70,7 +70,7 @@ def main():
     # Plot the decision boundary
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200), np.linspace(y_min, y_max, 200))
+    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))
     grid_points = np.c_[xx.ravel(), yy.ravel()]
     Z = perceptron.predict(grid_points).reshape(xx.shape)
 
